@@ -55,7 +55,8 @@ func TestPassword(t *testing.T){
 
 	for _, c := range tests {
 		t.Run(c.name, func(t *testing.T) {
-			if c.valid != PasswordChecker(c.pass,c.name) {
+			valid,_:=PasswordChecker(c.pass,c.name)
+			if c.valid != valid {
 				t.Fatal("invalid password")
 			}
 		})

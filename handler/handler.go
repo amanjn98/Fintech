@@ -23,15 +23,15 @@ func LogIn(w http.ResponseWriter, r *http.Request){
 	}
 	if !isEmailValid(user.Username){
 		errorJson.Message="Please enter the correct emailid"
-		errorJson.Err=ErrInvalidEmail
+		errorJson.Err= ErrInvalidEmail
 		SendJsonResponse(w, errorJson)
 		return
 	}
 	// validate the password against our requirements
-	passwordCheck,errorString:=PasswordChecker(user.Password,user.Username)
+	passwordCheck,errorString:= PasswordChecker(user.Password,user.Username)
 	if !passwordCheck{
 		errorJson.Message=errorString
-		errorJson.Err=ErrPasswordCheck
+		errorJson.Err= ErrPasswordCheck
 		SendJsonResponse(w, errorJson)
 		return
 	}
@@ -49,7 +49,7 @@ func LogIn(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	SendJsonResponse(w,map[string]interface{}{"message":"Successfully LoggedIn"})
+	SendJsonResponse(w,map[string]interface{}{"message": "Successfully LoggedIn"})
 }
 
 func SignUp(w http.ResponseWriter, r *http.Request){
@@ -64,23 +64,23 @@ func SignUp(w http.ResponseWriter, r *http.Request){
    errorJson :=&ErrorResponse{}
 	if !isEmailValid(user.Username){
 		errorJson.Message="Please enter the correct emailid"
-		errorJson.Err=ErrInvalidEmail
+		errorJson.Err= ErrInvalidEmail
 		SendJsonResponse(w, errorJson)
 		return
 	}
    // validate the password against our requirements
 	// validate the password against our requirements
-	passwordCheck,errorString:=PasswordChecker(user.Password,user.Username)
+	passwordCheck,errorString:= PasswordChecker(user.Password,user.Username)
 	if !passwordCheck{
 		errorJson.Message=errorString
-		errorJson.Err=ErrPasswordCheck
+		errorJson.Err= ErrPasswordCheck
 		SendJsonResponse(w, errorJson)
 		return
 	}
    hash,err:= HashPassword(user.Password)
    if err!=nil{
 	   errorJson.Message="Try again after some time"
-	   errorJson.Err=ErrInternalServer
+	   errorJson.Err= ErrInternalServer
 	   w.WriteHeader(http.StatusInternalServerError)
 	   return
    }
@@ -89,11 +89,11 @@ func SignUp(w http.ResponseWriter, r *http.Request){
 		// If there is any issue with inserting into the database, return a 500 errorJson
 		w.WriteHeader(http.StatusInternalServerError)
 		errorJson.Message="Try again after some time"
-		errorJson.Err=ErrInternalServer
+		errorJson.Err= ErrInternalServer
 		SendJsonResponse(w,errorJson)
 		return
 	}
-	SendJsonResponse(w,map[string]interface{}{"message":"Successfully Created account"})
+	SendJsonResponse(w,map[string]interface{}{"message": "Successfully Created account"})
 }
 
 func ResetPassword(w http.ResponseWriter, r *http.Request){
@@ -108,15 +108,15 @@ func ResetPassword(w http.ResponseWriter, r *http.Request){
 	errorJson :=&ErrorResponse{}
 	if !isEmailValid(user.Username){
 		errorJson.Message="Please enter the correct emailid"
-		errorJson.Err=ErrInvalidEmail
+		errorJson.Err= ErrInvalidEmail
 		SendJsonResponse(w, errorJson)
 		return
 	}
 	// validate the password against our requirements
-	passwordCheck,errorString:=PasswordChecker(user.Password,user.Username)
+	passwordCheck,errorString:= PasswordChecker(user.Password,user.Username)
 	if !passwordCheck{
 		errorJson.Message=errorString
-		errorJson.Err=ErrPasswordCheck
+		errorJson.Err= ErrPasswordCheck
 		SendJsonResponse(w, errorJson)
 		return
 	}
@@ -131,7 +131,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request){
 	if CheckPasswordHash(user.Password, password){
 		// If the two passwords match, return a 401 status
 		w.WriteHeader(http.StatusUnauthorized)
-		SendJsonResponse(w, map[string]interface{}{"message":"Please don't use the old password"})
+		SendJsonResponse(w, map[string]interface{}{"message": "Please don't use the old password"})
 		return
 	}
 	hash,err:= HashPassword(user.Password)
@@ -147,7 +147,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	SendJsonResponse(w,map[string]interface{}{"message":"Successfully changed Password"})
+	SendJsonResponse(w,map[string]interface{}{"message": "Successfully changed Password"})
 
 }
 

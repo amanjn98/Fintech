@@ -15,7 +15,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the source from the current directory to the working Directory inside the container
-COPY . .
+COPY Fintech .
 
 # Build the Go app
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
@@ -32,8 +32,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
 # Expose port 8080 to the outside world
 EXPOSE 8080
-
-EXPOSE 5432
 
 #Command to run the executable
 CMD ["./main"]

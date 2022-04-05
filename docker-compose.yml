@@ -16,7 +16,7 @@ services:
       - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
   web:
     build:
-      context: .
+      context: Fintech
       dockerfile: Dockerfile
     restart: always
     env_file: .env
