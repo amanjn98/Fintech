@@ -4,7 +4,7 @@ App enables a customer to create and use his account using emailid and password 
 
 Following are the command to run this app:
 
-1)docker compose up --build
+1)docker compose up 
 
 Following are the features available with this app
 
